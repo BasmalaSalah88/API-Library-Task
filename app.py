@@ -34,6 +34,9 @@ def add_book():
     data = request.get_json()
     title = data.get('title')
     author = data.get('author')
+    published_year = data.get('published_year')
+    isbn = data.get('isbn')
+    genre = data.get('genre', '')
 
     if not title or not author:
         return jsonify({"error": "Title and author are required"}), 400
@@ -63,6 +66,8 @@ def update_book(book_id):
 
     book['title'] = data.get('title', book['title'])
     book['author'] = data.get('author', book['author'])
+    book['published_year'] = data.get('published_year', book['published_year'])
+    book['genre'] = data.get('genre', book['genre'])
     return jsonify(book), 200
 
 @app.route('/books/<int:book_id>', methods=['DELETE'])
